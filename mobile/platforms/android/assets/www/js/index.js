@@ -169,7 +169,9 @@ function read_bt_string(data){
 function emergency_stop(e){
   e.preventDefault();
   console.log("EMERGENCY STOP");
-  bluetoothSerial.write("00000000\n", function(){},function(){})
+  bluetoothSerial.write("00000000\n", function(){
+    console.log("BTDATA_SEND: "+"00000000\n");
+  },function(){})
 }
 function four_digits(val){
   if(val <10) return "000"+val;
