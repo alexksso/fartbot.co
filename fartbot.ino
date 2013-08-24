@@ -9,7 +9,7 @@
 
 String readString, servo1, servo2;
 SoftwareSerial mySerial(12, 11); // RX, TX
-
+boolean ready_string = false;
 
 void setup(){
   //set the controls for motors MOSFET transistors - ensure motors are stopped
@@ -28,22 +28,27 @@ void setup(){
   
   mySerial.begin(57600);
   mySerial.println("two-servo-test-1.0");
-  mySerial.println("type 15003000 to get the left at 38/255 speed and right at 76/255 speed")
+  mySerial.println("type 15003000 to get the left at 38/255 speed and right at 76/255 speed");
   
 }
 
 
 void loop(){
-    while (mySerial.available()) {
+  ready_string = false;
+  while (mySerial.available()) {
     delay(3);  //delay to allow buffer to fill 
     if (mySerial.available() >0) {
       char c = mySerial.read();  //gets one byte from serial buffer
       readString += c; //makes the string readString
+      if(c == (char) 10){
+        ready_string = true;
+        break;
+      }
     } 
   }
 
-  if (readString.length() >0) {
-      mySerial.println(readString); //see what was received
+  if (ready_string && readString.length() >0) {
+      Serial.println(readString); //see what was received
       
       // expect a string like 07002100 containing the two servo positions      
       servo1 = readString.substring(0, 4); //get the first four characters
