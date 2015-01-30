@@ -154,7 +154,9 @@ function move_robot(speed, balance){
     $("#right").text(right_motor);
     // 00000000
     // 20002000
-    var command = four_digits(left_motor)+four_digits(right_motor)+"\n";
+    var command = four_digits(right_motor)+four_digits(left_motor)+"\n";
+
+    console.log("BTDATA_READYSEND: "+command);
     bluetoothSerial.write(command , function(){
       console.log("BTDATA_SEND: "+command);
     }, function(error){
@@ -177,5 +179,5 @@ function four_digits(val){
   if(val <10) return "000"+val;
   if(val< 100) return "00"+val;
   if(val< 1000) return "0"+val;
-  return val;
+  return String(val);
 }

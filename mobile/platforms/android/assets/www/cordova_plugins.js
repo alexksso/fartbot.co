@@ -7,5 +7,11 @@ module.exports = [
             "bluetoothSerial"
         ]
     }
-]
+];
+module.exports.metadata = 
+// TOP OF METADATA
+{
+    "com.megster.cordova.BluetoothSerial": "0.2.0"
+}
+// BOTTOM OF METADATA
 });
